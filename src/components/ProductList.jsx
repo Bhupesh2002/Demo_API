@@ -2,34 +2,39 @@ import React, { useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import {Mosaic} from 'react-loading-indicators'
+import useFetch from './custom-hook/useFetch';
 
 const ProductList = () => {
 
-  let [products,setProducts] = useState([]);
-  let [error,setError] = useState("");
-  let [loading,isLoading] = useState(true);
+  // let [products,setProducts] = useState([]);
+  // let [error,setError] = useState("");
+  // let [loading,isLoading] = useState(true);
 
-  useEffect( ()=>{
-    console.log("useEffect running...");
-    fetch( "http://localhost:5000/products/", { method:"GET" } )
-    .then( (response)=>{ 
-      if(response.ok){
-        return response.json();
-      }
-      else{
-        throw new Error( "search Proper Data" );
-      }
-    })
-    .then( (data)=>{ 
-      setProducts(data) 
-    })
-    .catch( (error)=>{ 
-      setError(error.message) 
-    })
-    .finally( ()=>{ 
-      isLoading(false) 
-    })
-  },[]);
+  // useEffect( ()=>{
+  //   console.log("useEffect running...");
+  //   fetch( "http://localhost:5000/products/", { method:"GET" } )
+  //   .then( (response)=>{ 
+  //     if(response.ok){
+  //       return response.json();
+  //     }
+  //     else{
+  //       throw new Error( "search Proper Data" );
+  //     }
+  //   })
+  //   .then( (data)=>{ 
+  //     setProducts(data) 
+  //   })
+  //   .catch( (error)=>{ 
+  //     setError(error.message) 
+  //   })
+  //   .finally( ()=>{ 
+  //     isLoading(false) 
+  //   })
+  // },[]);
+
+  let { products, error, loading } = useFetch("https://fakestoreapi.com/Products");
+  // console.log(customHook);
+
 
   if(loading){
     return (
